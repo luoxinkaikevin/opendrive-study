@@ -158,7 +158,7 @@ namespace opendrive
         }
     }
     
-    // 获取弧长所对应的道路中心上的路点
+    // 获取弧长所对应的道路中心上的路点（）
     bool OpenDriveRoad::createSingleCenterPoint(double _ds, PlannerHNS::WayPoint &_p)
     {
         for (unsigned int i = 0; i < geometries_.size(); i++)
