@@ -417,7 +417,7 @@ namespace opendrive
                                 getRoadById(junction_connection.outgoing_road_);
                             if (incoming_road == nullptr)
                                 continue;
-
+                            // 这里处理前驱junction为啥要获取一个out和一个in的section？
                             RoadSection *outgoing_section = roads_list_.at(i).getLastSection();
                             RoadSection *incoming_section = nullptr;
                             if (junction_connection.contact_point_ == "end")
