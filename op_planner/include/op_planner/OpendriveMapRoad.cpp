@@ -5,6 +5,7 @@ namespace opendrive
     std::fstream lane_file;
 
     double g_epsilon = 0.00001;
+    /*这几个append变量的作用？？？*/
     bool append_0 = false;
     bool append_1 = false;
     bool append_2 = false;
@@ -261,7 +262,7 @@ namespace opendrive
 
         for (unsigned int i = 0; i < geometries_.size(); i++)
         {
-            int n_waypoints = floor(geometries_.at(i).length / resolution) + 1;
+            int n_waypoints = floor(geometries_.at(i).length / resolution) + 1;//floor函数向下取整
             double s_inc = geometries_.at(i).s;
             double remaining_distance = 0.0;
             double end_distance = geometries_.at(i).s + geometries_.at(i).length;
@@ -659,6 +660,7 @@ namespace opendrive
     }
 
     // check lane points in the same position
+    // 这个函数的作用不太了解
     void OpenDriveRoad::fixRedundantPointsLanes(PlannerHNS::Lane &_lane)
     {
         for (int ip = 1; ip < _lane.points.size(); ip++)
@@ -690,6 +692,7 @@ namespace opendrive
     std::fstream hh;
     std::fstream roi_file;
     std::fstream speed_file;
+    // 函数作用？？？
     void OpenDriveRoad::createSectionPoints(const RoadCenterInfo &ref_info,
                                             std::vector<PlannerHNS::Lane> &lanes_list,
                                             RoadSection *p_sec,
@@ -989,7 +992,7 @@ namespace opendrive
         createRoadCenterInfo(ref_info, resolution);
         // create all lanes in this road
         createRoadLanes(lanes_list);
-
+        
         createAdjecntLanes(lanes_list);
 
         // waypoints id in lane add 1 every time from number 1
@@ -998,6 +1001,7 @@ namespace opendrive
         std::vector<int> left_lane_ids, right_lane_ids;
         //for evey reference line point
         // create center points for every lane which perpendicular reference line point
+        // 为每条与参考线垂直的车道创建中心点？？？
         for (unsigned int i = 0; i < ref_info.size(); i++)
         {
             RoadSection *p_sec = getMatchingSection(ref_info.at(i).ds_);
@@ -1013,6 +1017,7 @@ namespace opendrive
         }
 
         // if keep right to drive, reverse left lane points
+        // 这个ifesle条件是否有bug，为啥keepright后只对left lanes的id进行了操作
         if (keep_right_)
         {
             for (auto id : left_lane_ids)
@@ -1020,7 +1025,7 @@ namespace opendrive
                 PlannerHNS::Lane *p_op_lane = getLaneById(id, lanes_list);
                 if (p_op_lane != nullptr)
                 {
-                    std::reverse(p_op_lane->points.begin(), p_op_lane->points.end());
+                    std::reverse(p_op_lane->points.begin(), p_op_lane->points.end());//reverse（）作用将元素逆序
                 }
             }
         }

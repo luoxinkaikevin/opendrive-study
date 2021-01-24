@@ -105,7 +105,9 @@ namespace opendrive
         void getStopLines(std::unordered_map<int, PlannerHNS::StopLine> &all_stop_lines);
         void getCrossWalk(std::unordered_map<int, PlannerHNS::Crossing> &all_crosswalk);
         void getParkSpot(std::unordered_map<int, PlannerHNS::ParkSpot> &all_parkspot);
+        //向to方向的road中添加一个connection
         void insertUniqueToConnection(const Connection &_connection);
+        //向from方向的road中添加一个connection
         void insertUniqueFromConnection(const Connection &_connection);
 
         OpenDriveRoad()
@@ -210,17 +212,28 @@ namespace opendrive
         }
 
         void insertUniqueFromSectionIds(int from_section_id, const OpenDriveLane *curr_lane, PlannerHNS::Lane &_l);
+        
         void insertUniqueToSectionIds(int to_section_id, const OpenDriveLane *curr_lane, PlannerHNS::Lane &_l);
+        
         void insertUniqueFromRoadIds(int curr_section_id, int curr_lane_id, PlannerHNS::Lane &_l);
+        
         void insertUniqueToRoadIds(int curr_section_id, int curr_lane_id, PlannerHNS::Lane &_l);
-
+        //这个创建邻近lane函数的作用，它与createRoadLanes()的关系？？？
         void createAdjecntLanes(std::vector<PlannerHNS::Lane> &lanes_list);
+
         bool createSingleCenterPoint(double _ds, PlannerHNS::WayPoint &_p);
+        // create all lanes in one road
+        // assign id\num\roadId\length\fromIds\toIds\speed
         void createRoadLanes(std::vector<PlannerHNS::Lane> &lanes_list);
+        // creat reference center line points only based on geometry
         void createRoadCenterInfo(std::vector<RoadCenterInfo> &points_list, double resolution = 0.5);
+
         bool createRoadCenterPoint(RoadCenterInfo &inf_point, double _s);
+
         void insertRoadCenterInfo(std::vector<RoadCenterInfo> &points_list, RoadCenterInfo &inf_point);
+
         void fixRedundantPointsLanes(PlannerHNS::Lane &_lane);
+
         void createSectionPoints(const RoadCenterInfo &ref_info, std::vector<PlannerHNS::Lane> &lanes_list,
                                  RoadSection *p_sec, int &wp_id_seq, std::vector<int> &left_lane_ids, std::vector<int> &right_lane_ids);
 

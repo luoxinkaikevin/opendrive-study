@@ -437,7 +437,7 @@ namespace opendrive
 
                             if (!connection.lane_links.empty())
                             {
-                                if (connection.lane_links.size() == 1)
+                                if (connection.lane_links.size() == 1)//road中只有一条lane
                                 {
                                     if ((keep_right_ && connection.lane_links.at(0).first > 0) ||
                                         (!keep_right_ && connection.lane_links.at(0).first < 0))
@@ -479,11 +479,13 @@ namespace opendrive
                                         // std::cout << "road id" << roads_list_.at(i).id_ << std::endl;
                                         // std::cout<<"index= "<<index<<std::endl;
                                         for (unsigned int i = 0; i < index; i++)
-                                        {
+                                        {   
+                                            // push_back函数是将新的元素添加到vector的最后一个元素的下一位置
                                             conn.lane_links.push_back(connection.lane_links.at(i));
                                         }
                                         connection_list.push_back(conn);
                                         conn.lane_links.clear();
+                                        // 为啥会和上一个for循环干的事情一样？？？
                                         for (unsigned int i = index; i < connection.lane_links.size(); i++)
                                         {
                                             conn.lane_links.push_back(connection.lane_links.at(i));
@@ -509,7 +511,7 @@ namespace opendrive
                                         }
                                     }
                                     else
-                                    {
+                                    {   //为啥跟上一层if中的操作一样？？？
                                         if ((keep_right_ && connection.lane_links.at(0).first > 0) ||
                                             (!keep_right_ && connection.lane_links.at(0).first < 0))
                                         {
